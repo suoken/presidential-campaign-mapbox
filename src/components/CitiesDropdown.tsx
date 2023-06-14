@@ -13,17 +13,6 @@ const CitiesDropdown: React.FC<CitySelectionProps> = ({ onAddCity, selectedCitie
     const [currentCity, setCurrentCity] = useState<City | null>(null)
     const [cities, setCities] = useState<City[]>([])
 
-    const handleAddCity = () => {
-        if (currentCity) {
-            console.log('here')
-            onAddCity(currentCity)
-        }
-
-        // if (currentCity && !selectedCities.find(city => city.City === currentCity.City)) {
-
-        // }
-    }
-
     const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const currentCity = cities.find(c => c.City === e.target.value)
         if (currentCity && !selectedCities.find(city => city.City === currentCity.City)) {
