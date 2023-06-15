@@ -11,7 +11,7 @@ export type City = {
 }
 
 const ControlPanel: React.FC = () => {
-    const [selectedCities, setSelectedCities] = useState<City[]>([])
+    const [selectedCities, setSelectedCities] = useState<City[]>([]) 
     
     const handleAddCity = (city: City) => {
         setSelectedCities(prevCities => [...prevCities, city])
@@ -21,13 +21,17 @@ const ControlPanel: React.FC = () => {
         setSelectedCities(prevCities => prevCities.filter(c => c.City !== city.City))
     }
 
+    const handleCityShortestRoute = (cityRoute: City[]) => {
+        setSelectedCities(cityRoute)
+    }
+
     return (
         <div className='control-panel'>
             <h3>Presidental Campaign Trail</h3>
             <p>Add cities and press calculate to determine the shortest route to each city</p>
             <CitiesDropdown onAddCity={handleAddCity} selectedCities={selectedCities}/>
             <SelectedCities cities={selectedCities} onRemoveCity={handleRemoveCity}/>
-            { selectedCities.length != 0 && (<CalculateDistance selectedCities={selectedCities} />) }
+            { selectedCities.length != 0 && (<CalculateDistance selectedCities={selectedCities} onCalculate={handleCityShortestRoute}/>) }
         </div>
     )
 }
