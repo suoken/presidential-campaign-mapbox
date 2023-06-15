@@ -1,9 +1,9 @@
 import React from 'react'
-import { City } from './ControlPanel'
+import { City, CalculateReturn } from './ControlPanel'
 
 interface CalculateDistanceProps {
     selectedCities: City[]
-    onCalculate: (city: City[]) => void
+    onCalculate: (city: CalculateReturn) => void
 }
   
  // Helper function to calculate the distance between two coordinates using the Haversine formula
@@ -26,7 +26,7 @@ const degreesToRadians = (degrees: number): number => {
 }
   
 // Function to find the optimal route and minimize the total distance
-const findOptimalRoute = (cities: City[], onCalculate: (city: City[]) => void): { route: City[]; distance: number } => {
+const findOptimalRoute = (cities: City[], onCalculate: (city: CalculateReturn) => void): void => {
     const startCity = cities[0]
     let optimalRoute: City[] = []
     let minDistance = Infinity
@@ -64,14 +64,13 @@ const findOptimalRoute = (cities: City[], onCalculate: (city: City[]) => void): 
     }
   
     permute(cities.slice(1), [startCity], 0)
-    onCalculate(optimalRoute)
-
-    return { route: optimalRoute, distance: minDistance }
+  
+    onCalculate({ route: optimalRoute, distance: minDistance})
 }
 
 const CalculateDistance: React.FC<CalculateDistanceProps> = ({ selectedCities, onCalculate }) => {
     return (
-        <button onClick={() => findOptimalRoute(selectedCities, onCalculate)}>Calculate</button>
+        <button className='calculate-btn' onClick={() => findOptimalRoute(selectedCities, onCalculate)}>Calculate</button>
     )
 }
 

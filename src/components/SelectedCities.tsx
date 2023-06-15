@@ -8,6 +8,7 @@ interface SelectedCitiesProps {
 
 const SelectedCities: React.FC<SelectedCitiesProps> = ({ cities, onRemoveCity }) => {
     const endingCity = cities[0]
+    
     return (
         <ul className='selected-cities-list'>
             {cities.map((city, index) => (

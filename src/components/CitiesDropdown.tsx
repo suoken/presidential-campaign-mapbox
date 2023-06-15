@@ -39,7 +39,7 @@ const CitiesDropdown: React.FC<CitySelectionProps> = ({ onAddCity, selectedCitie
     
     return (
         <div>
-            <select value={currentCity ? currentCity.City : ''} onChange={handleCityChange}>
+            <select className='cities-dropdown' value={currentCity ? currentCity.City : ''} onChange={handleCityChange}>
                 <option value=''>Select a city</option>
                 {cities.map((city, index) => <option key={index} value={city.City}>{city.City}, {city.State}</option>)}
             </select>
