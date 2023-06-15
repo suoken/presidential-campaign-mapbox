@@ -17,7 +17,7 @@ export interface CalculateReturn {
 
 const ControlPanel: React.FC = () => {
     const [selectedCities, setSelectedCities] = useState<City[]>([]) 
-    const [totalDistance, setTotalDistance] = useState<number>()
+    const [totalDistance, setTotalDistance] = useState<number>(0)
     
     const handleAddCity = (city: City) => {
         setSelectedCities(prevCities => [...prevCities, city])
@@ -33,14 +33,20 @@ const ControlPanel: React.FC = () => {
         setSelectedCities(route)
     }
 
+    const handleClear = () => {
+        setSelectedCities([])
+        setTotalDistance(0)
+    }
+
     return (
         <div className='control-panel'>
             <h3>Presidental Campaign Trail</h3>
             <p>Add cities and press calculate to determine the shortest route to each city</p>
-            <CitiesDropdown onAddCity={handleAddCity} selectedCities={selectedCities}/>
+            <CitiesDropdown selectedCities={selectedCities} onAddCity={handleAddCity} />
             <SelectedCities cities={selectedCities} onRemoveCity={handleRemoveCity}/>
-            { totalDistance && <div className='total-distance'><b>Total distance: {totalDistance.toFixed(2)} km</b></div>}
+            { totalDistance != 0 && <div className='total-distance'><b>Total distance: {totalDistance.toFixed(2)} km</b></div>}
             { selectedCities.length != 0 && (<CalculateDistance selectedCities={selectedCities} onCalculate={handleCityShortestRoute}/>) }
+            { selectedCities.length != 0 && <button className='clear-btn' onClick={() => handleClear()}>Clear</button> }
         </div>
     )
 }

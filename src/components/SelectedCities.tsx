@@ -13,9 +13,9 @@ const SelectedCities: React.FC<SelectedCitiesProps> = ({ cities, onRemoveCity })
         <ul className='selected-cities-list'>
             {cities.map((city, index) => (
                 <li key={index} className='city'>
-                    { index == 0 && <div><b>Start city: </b>{city.City}, {city.State}</div> }
-                    { index > 0 && <div>{city.City}, {city.State}</div>}
-                    { index == cities.length - 1 && <div><b>End city: </b>{endingCity.City}, {endingCity.State}</div>}
+                    { index == 0 && <div>{index + 1}. {city.City}, {city.State}</div> }
+                    { index > 0 && <div>{index + 1}. {city.City}, {city.State}</div>}
+                    { index == cities.length - 1 && <div><b>End: </b> {endingCity.City}, {endingCity.State}</div>}
                     <button className='remove-btn' onClick={() => onRemoveCity(city)}>Remove</button>
                 </li>
             ))}

@@ -115,6 +115,11 @@ select {
   border-color: #7a7b7e;
 }
 
+.clear-btn {
+  border-color: #7a7b7e;
+  margin-left: 10px;
+}
+
 .cities-dropdown {
   width: 310px;
 }
