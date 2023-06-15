@@ -8,11 +8,11 @@ interface SelectedCitiesProps {
 
 const SelectedCities: React.FC<SelectedCitiesProps> = ({ cities, onRemoveCity }) => {
     return (
-        <ul>
+        <ul className='selected-cities-list'>
             {cities.map(city => (
-                <li key={city.Latitude}>
-                    {city.City + ', ' + city.State}
-                    <button onClick={() => onRemoveCity(city)}>Remove</button>
+                <li key={city.Latitude} className='city'>
+                    {city.City}, {city.State}
+                    <button className='remove-btn' onClick={() => onRemoveCity(city)}>Remove</button>
                 </li>
             ))}
         </ul>

@@ -39,7 +39,7 @@ h1 {
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  /* padding: 0.6em 1.2em; */
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
@@ -85,6 +85,27 @@ button:focus-visible {
   font-size: 13px;
   line-height: 2;
   color: #6b6b76;
-  text-transform: uppercase;
   outline: none;
+}
+
+.selected-cities-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.city {
+  position: relative;
+}
+
+.remove-btn {
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+
+.pin-number { 
+  fill: '#fff';
+  font-size: '12px';
+  text-anchor: 'middle';
 }

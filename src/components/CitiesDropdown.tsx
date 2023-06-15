@@ -41,7 +41,7 @@ const CitiesDropdown: React.FC<CitySelectionProps> = ({ onAddCity, selectedCitie
         <div>
             <select value={currentCity ? currentCity.City : ''} onChange={handleCityChange}>
                 <option value=''>Select a city</option>
-                {cities.map(city => <option key={city.Latitude} value={city.City}>{city.City + ', ' + city.State}</option>)}
+                {cities.map(city => <option key={city.Latitude} value={city.City}>{city.City}, {city.State}</option>)}
             </select>
         </div>
     )

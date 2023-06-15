@@ -21,7 +21,7 @@ const ControlPanel:React.FC = () => {
     }
 
     return (
-        <div className="control-panel">
+        <div className='control-panel'>
             <h3>Presidental Campaign Trail</h3>
             <p>Add cities and press calculate to determine the shortest route to each city</p>
             <CitiesDropdown onAddCity={handleAddCity} selectedCities={selectedCities}/>
