@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import CitiesDropdown from './CitiesDropdown'
 import SelectedCities from './SelectedCities'
+import CalculateDistance from './CalculateDistance'
 
 export type City = {
     City: 'string',
@@ -9,7 +10,7 @@ export type City = {
     Longitude: 'string',
 }
 
-const ControlPanel:React.FC = () => {
+const ControlPanel: React.FC = () => {
     const [selectedCities, setSelectedCities] = useState<City[]>([])
     
     const handleAddCity = (city: City) => {
@@ -26,6 +27,7 @@ const ControlPanel:React.FC = () => {
             <p>Add cities and press calculate to determine the shortest route to each city</p>
             <CitiesDropdown onAddCity={handleAddCity} selectedCities={selectedCities}/>
             <SelectedCities cities={selectedCities} onRemoveCity={handleRemoveCity}/>
+            { selectedCities.length != 0 && (<CalculateDistance selectedCities={selectedCities} />) }
         </div>
     )
 }

@@ -103,9 +103,3 @@ button:focus-visible {
   right: 10px;
   top: 5px;
 }
-
-.pin-number { 
-  fill: '#fff';
-  font-size: '12px';
-  text-anchor: 'middle';
-}

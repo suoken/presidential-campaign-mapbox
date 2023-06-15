@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { parse } from 'papaparse'
+import { parse, ParseResult } from 'papaparse'
 import { City } from './ControlPanel'
 
 const CITIES =  '../../data/cities_all.csv'
@@ -27,7 +27,7 @@ const CitiesDropdown: React.FC<CitySelectionProps> = ({ onAddCity, selectedCitie
                 header: true,
                 download: true,
                 delimiter: ',',
-                complete: ((results: any) => {
+                complete: ((results: ParseResult<City>) => {
                     const cities: City[] = results.data
                     const sortedCities: City[] = cities.sort((a,b) => a.City.localeCompare(b.City))
                     setCities(sortedCities)
@@ -41,7 +41,7 @@ const CitiesDropdown: React.FC<CitySelectionProps> = ({ onAddCity, selectedCitie
         <div>
             <select value={currentCity ? currentCity.City : ''} onChange={handleCityChange}>
                 <option value=''>Select a city</option>
-                {cities.map(city => <option key={city.Latitude} value={city.City}>{city.City}, {city.State}</option>)}
+                {cities.map((city, index) => <option key={index} value={city.City}>{city.City}, {city.State}</option>)}
             </select>
         </div>
     )
