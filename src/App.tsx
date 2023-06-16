@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import Map, { GeolocateControl, FullscreenControl, NavigationControl, ScaleControl, Popup, Marker } from 'react-map-gl'
+import Map, { GeolocateControl, FullscreenControl, NavigationControl, ScaleControl, Popup, Marker, Source, Layer } from 'react-map-gl'
 import ControlPanel, { City } from './components/ControlPanel'
 import Pin from './components/Pin'
 import './App.css'
@@ -31,6 +31,23 @@ const App:React.FC = () => {
     setPopupInfo(null)
   }
 
+  const populateCoordinates = (cities: City[]) => {
+    const coordinates = cities.map((city) => [Number(city.Longitude), Number(city.Latitude)])
+    coordinates && coordinates.push([Number(cities[0].Longitude), Number(cities[0].Latitude)]) // connect line to last city
+    const data = {
+      type: 'Feature' as const,
+      properties: {},
+      geometry: {
+        type: 'LineString' as const,
+        coordinates,
+      },
+    }
+
+    return data
+  } 
+
+  const lineData = cities.length != 0 && populateCoordinates(cities)
+
   const pins = useMemo(
     () => 
       cities.map((city, index) => (
@@ -53,7 +70,7 @@ const App:React.FC = () => {
         </Marker>
       )), [cities]
   )
-
+  
   return (
     <>
       <Map
@@ -61,9 +78,9 @@ const App:React.FC = () => {
         mapStyle = 'mapbox://styles/mapbox/streets-v12'
         mapboxAccessToken = { TOKEN }
       >      
-        <GeolocateControl position = "top-left" />
-        <FullscreenControl position = "top-left" />
-        <NavigationControl position = "top-left" />
+        <GeolocateControl position = 'top-left' />
+        <FullscreenControl position = 'top-left' />
+        <NavigationControl position = 'top-left' />
         <ScaleControl />
 
         {pins}
@@ -80,6 +97,21 @@ const App:React.FC = () => {
             </div>
           </Popup>
         )}
+
+      { lineData && 
+        <Source id="route-data" type="geojson" data={lineData}>
+          <Layer
+            id="lineLayer"
+            type="line"
+            source="route-data"
+            paint={{
+              'line-color': '#FF0000', // Red line color
+              'line-width': 2, // Line width in pixels
+            }}
+          />
+        </Source>
+      }
+
       </Map>
       <ControlPanel onRouteUpdate={setCities} onClear={handlePinClear}/>
     </>

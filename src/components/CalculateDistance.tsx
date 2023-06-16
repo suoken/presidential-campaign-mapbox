@@ -26,8 +26,7 @@ const degreesToRadians = (degrees: number): number => {
     return degrees * (Math.PI / 180)
 }
   
-// Function to find the optimal route and minimize the total distance
-// A version of the traveling salesman problem
+// A version of the traveling salesman problem to find the optimal route and minimize the total distance
 const findOptimalRoute = (cities: City[], onCalculate: (city: CalculateReturn) => void): void => {
     const startCity = cities[0]
     let optimalRoute: City[] = []
