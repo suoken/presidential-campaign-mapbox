@@ -15,7 +15,12 @@ export interface CalculateReturn {
     distance: number
 }
 
-const ControlPanel: React.FC = () => {
+interface ControlPanelProps {
+    onRouteUpdate: (city: City[]) => void
+    onClear: () => void
+}
+
+const ControlPanel: React.FC<ControlPanelProps> = ({ onRouteUpdate, onClear }) => {
     const [selectedCities, setSelectedCities] = useState<City[]>([]) 
     const [totalDistance, setTotalDistance] = useState<number>(0)
     
@@ -31,11 +36,13 @@ const ControlPanel: React.FC = () => {
         const { route, distance } = cityRoute
         setTotalDistance(distance)
         setSelectedCities(route)
+        onRouteUpdate(route)
     }
 
     const handleClear = () => {
         setSelectedCities([])
         setTotalDistance(0)
+        onClear()
     }
 
     return (

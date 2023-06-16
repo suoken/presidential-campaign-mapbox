@@ -34,7 +34,7 @@ const CitiesDropdown: React.FC<CitySelectionProps> = ({ onAddCity, selectedCitie
                 })
             })
         }
-        fetchCities();
+        fetchCities()
     }, [])
     
     return (

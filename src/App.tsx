@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import Map, { GeolocateControl, FullscreenControl, NavigationControl, ScaleControl, Popup, Marker } from 'react-map-gl'
-import ControlPanel from './components/ControlPanel'
+import ControlPanel, { City } from './components/ControlPanel'
 import Pin from './components/Pin'
 import './App.css'
 
@@ -24,26 +24,34 @@ interface PopupInfo {
 
 const App:React.FC = () => {
   const [popupInfo, setPopupInfo] = useState<PopupInfo | null>(null)
+  const [cities, setCities] = useState<City[]>([])
+
+  const handlePinClear = () => {
+    setCities([])
+    setPopupInfo(null)
+  }
 
   const pins = useMemo(
-    () => (
-      <Marker
-        longitude={-122.4194155}
-        latitude={37.7749295}
-        anchor='bottom'
-        onClick={e => {
-          e.originalEvent.stopPropagation()
-          setPopupInfo({
-            city: 'San Francisco',
-            state: 'Cali',
-            longitude: '-122.4194155',
-            latitude: '37.7749295'
-          })
-        }}
-      >
-        <Pin />
-      </Marker>
-    ), []
+    () => 
+      cities.map((city, index) => (
+        <Marker
+          longitude={Number(city.Longitude)}
+          latitude={Number(city.Latitude)}
+          anchor='bottom'
+          key={index}
+          onClick={e => {
+            e.originalEvent.stopPropagation()
+            setPopupInfo({
+              city: city.City,
+              state: city.State,
+              longitude: city.Longitude,
+              latitude: city.Latitude
+            })
+          }}
+        >
+          <Pin number={index + 1}/>
+        </Marker>
+      )), [cities]
   )
 
   return (
@@ -73,7 +81,7 @@ const App:React.FC = () => {
           </Popup>
         )}
       </Map>
-      <ControlPanel />
+      <ControlPanel onRouteUpdate={setCities} onClear={handlePinClear}/>
     </>
   )
 }

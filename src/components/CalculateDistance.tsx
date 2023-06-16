@@ -7,25 +7,27 @@ interface CalculateDistanceProps {
 }
   
  // Helper function to calculate the distance between two coordinates using the Haversine formula
+ // taken from https://github.com/thealmarques/haversine-distance-typescript/blob/master/index.ts
 const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
     const earthRadius = 6371 // Radius of the Earth in kilometers
     const dLat = degreesToRadians(lat2 - lat1)
     const dLon = degreesToRadians(lon2 - lon1)
-    const a =
+    const halfChordLength =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(degreesToRadians(lat1)) * Math.cos(degreesToRadians(lat2)) *
       Math.sin(dLon / 2) * Math.sin(dLon / 2)
-    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-    const distance = earthRadius * c
+    const angularDistance = 2 * Math.atan2(Math.sqrt(halfChordLength), Math.sqrt(1 - halfChordLength))
+    const distance = earthRadius * angularDistance
     return distance
   }
   
-  // Function to convert degrees to radians
+// Function to convert degrees to radians
 const degreesToRadians = (degrees: number): number => {
     return degrees * (Math.PI / 180)
 }
   
 // Function to find the optimal route and minimize the total distance
+// A version of the traveling salesman problem
 const findOptimalRoute = (cities: City[], onCalculate: (city: CalculateReturn) => void): void => {
     const startCity = cities[0]
     let optimalRoute: City[] = []
@@ -35,11 +37,11 @@ const findOptimalRoute = (cities: City[], onCalculate: (city: CalculateReturn) =
     const permute = (cities: City[], currentRoute: City[], currentDistance: number): void => {
       if (cities.length === 0) {
         const totalDistance = currentDistance + calculateDistance(
-          parseInt(currentRoute[currentRoute.length - 1].Latitude),
-          parseInt(currentRoute[currentRoute.length - 1].Longitude),
-          parseInt(startCity.Latitude),
-          parseInt(startCity.Longitude)
-        );
+          Number(currentRoute[currentRoute.length - 1].Latitude),
+          Number(currentRoute[currentRoute.length - 1].Longitude),
+          Number(startCity.Latitude),
+          Number(startCity.Longitude)
+        )
         if (totalDistance < minDistance) {
           minDistance = totalDistance
           optimalRoute = [...currentRoute]
@@ -49,10 +51,10 @@ const findOptimalRoute = (cities: City[], onCalculate: (city: CalculateReturn) =
           const city = cities[i]
           const remainingCities = cities.filter((_, index) => index !== i)
           const distance = currentDistance + calculateDistance(
-            parseInt(currentRoute[currentRoute.length - 1].Latitude),
-            parseInt(currentRoute[currentRoute.length - 1].Longitude),
-            parseInt(city.Latitude),
-            parseInt(city.Longitude)
+            Number(currentRoute[currentRoute.length - 1].Latitude),
+            Number(currentRoute[currentRoute.length - 1].Longitude),
+            Number(city.Latitude),
+            Number(city.Longitude)
           )
           permute(
             remainingCities,
