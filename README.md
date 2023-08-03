@@ -6,7 +6,7 @@ npm install
 npm run dev
 ```
 
-I used mapbox to generate a map and I left my mapbox token in here on purpose. In real life, I woud keep it in a `env.local`. Please don't steal it for neferious reasons.
+IN ORDER TO RUN THIS APP, YOU WILL NEED A MAPBOX TOKEN AND PUT IT IN APP.TSX
 
 ## The Problem
 

@@ -4,7 +4,7 @@ import ControlPanel, { City } from './components/ControlPanel'
 import Pin from './components/Pin'
 import './App.css'
 
-const TOKEN = 'pk.eyJ1Ijoic3Vva2VuIiwiYSI6ImNsaXA2aDlubzAzZ3czZHF2N2JweW1mejMifQ.oTJy_GGp_vg0F_bt1oWzHA'
+const TOKEN = "PUT TOKEN HERE" 
 
 // sets up a good zoom to see the entire USA 
 const USA_INITIAL_VIEW_STATE = {
