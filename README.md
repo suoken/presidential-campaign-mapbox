@@ -1,5 +1,11 @@
 # Presidential Campaign Route
 
+## About
+
+This app determines the shortest route between cities in the United States using the [Haversine Formula](https://en.wikipedia.org/wiki/Haversine_formula) to calculate distance and using dynamic programming approach to solve the [Travelling Salesman Problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem) to determine the shortest route (with the beginning and end city being the same). Using a dropdown, you can select cities for the route and when you click calculate, it will rearrange the order of which cities to visit based on shortest distance to get to all cities. The total distance is calculated and shown in the modal.
+
+![mapbox](https://github.com/suoken/presidential-campaign-mapbox/assets/22568107/b84f280b-0702-4cd8-92a2-f58abedc5e8e)
+
 ## Usage
 ```
 npm install
